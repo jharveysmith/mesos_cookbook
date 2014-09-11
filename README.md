@@ -50,17 +50,33 @@ Tested on
 
 ## Attributes
 
-* `node['mesos']['version']` - Mesosphere Mesos package version. Default: 
+* `node['mesos']['version']` - Mesosphere Mesos package version.  Default: 
 '0.17.0'.
-* `node['mesos']['cluster_name']` - Human readable name for the cluster, 
+* `node['mesos']['master']` - Hash of key/value pairs to be used in the 
+mesos master config file.  Some examples follow.
+* `node['mesos']['master']['cluster']` - Human readable name for the cluster, 
 displayed in the webui. Default: 'MyMesosCluster'.
-* `node['mesos']['port']` - Port to listen on. Default: 5050.
-* `node['mesos']['logs_dir']` - Location to put log files. Default: 
+* `node['mesos']['master']['zk']` - The list of zookeepers.  Default: 
+'cat /etc/mesos/zk' (auto-discovery in cookbook)
+* `node['mesos']['common']` - Hash of key/value pairs to be used in the
+mesos common config file.  Some examples follow.
+* `node['mesos']['common']['port']` - Port to listen on. Default: 5050.
+* `node['mesos']['common']['logs_dir']` - Location to put log files. Default: 
 '/var/log/mesos'.
-* `node['mesos']['work_dir']` - Where to place framework work directories. 
+* `node['mesos']['common']['loggin_level'` - The logging level to use.  Can be any of
+INFO, WARN, ERROR.  Default: INFO
+* `node['mesos']['slave']` - Hash of key/value pairs to be used in the
+mesos slave config file.  Some examples follow.
+* `node['mesos']['slave']['work_dir']` - Where to place framework work directories. 
 Default: '/tmp/mesos'
-* `node['mesos']['isolation_type']` - Isolation mechanism, may be one of: 
+* `node['mesos']['slave']['isolation']` - Isolation mechanism, may be one of: 
 process, cgroups. Default: 'process'.
+* `node['mesos']['slave']['checkpoint']` - Enable slave recovery. Default:
+'true'.
+* `node['mesos']['slave']['strict']` - If true, any recovery error is fatal.
+Default: 'false'.
+* `node['mesos']['slave']['recover']` - Whether to recover status updates and 
+reconnect with old executors. Default: 'reconnect'
 * `node['mesos']['zookeeper_server_list']` - List of ZooKeeper hostnames or 
 IP addresses. Default: [].
 * `node['mesos']['zookeeper_port']` - ZooKeeper port. Default: 2181.
@@ -72,12 +88,6 @@ ensemble url.
 * `node['mesos']['set_ec2_hostname']` - If true and running in ec2, set hostname
 to public dns name.  Default: true.
 * `node['mesos']['python_egg']` - URL of mesos python egg to download
-* `node['mesos']['slave']['checkpoint']` - Enable slave recovery. Default:
-'true'.
-* `node['mesos']['slave']['strict']` - If true, any recovery error is fatal.
-Default: 'false'.
-* `node['mesos']['slave']['recover']` - Whether to recover status updates and 
-reconnect with old executors. Default: 'reconnect'
 
 ## Recipes
 
